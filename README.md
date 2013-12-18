@@ -111,11 +111,14 @@ endfunction
 
 ##Default setting
 
-* Vim 全体
- * 自動補完
-* filetype=cpp のみ
- * <\> のハイライト
- * BOOST_PP_ から始まる単語のハイライト
+####Vim 全体
+* 自動補完
+* Wandbox でコードの実行
+ * wandbox.vim
+
+####filetype=cpp のみ
+* <\> のハイライト
+* BOOST_PP_ から始まる単語のハイライト
 
 
 ####キーマッピング
@@ -127,15 +130,16 @@ endfunction
 
 ##Install plugins
 
-* プラグイン管理プラグイン - [neobundle.vim](https://github.com/Shougo/neobundle.vim)
-* C++ のシンタックス - [cpp-vim](https://github.com/vim-jp/cpp-vim)
-* [](https://github.com/)
+* [neobundle.vim](https://github.com/Shougo/neobundle.vim) - プラグイン管理プラグイン
+* [cpp-vim](https://github.com/vim-jp/cpp-vim) - C++ のシンタックス
+* [](https://github.com/rhysd/wandbox-vim) - Wandbox でコードの実行
+* [](https://github.com/) - 
 
 
 ##License
 
 [NYSL](http://www.kmonos.net/nysl/)
 
-[NYSL http://www.kmonos.net/nysl/](http://www.kmonos.net/nysl/index.en.html)
+[NYSL English](http://www.kmonos.net/nysl/index.en.html)
 
 

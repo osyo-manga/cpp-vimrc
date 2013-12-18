@@ -53,8 +53,8 @@ if !isdirectory(s:neobundle_plugins_dir . "/neobundle.vim")
 				call mkdir(s:neobundle_plugins_dir, "p")
 			endif
 
-			execute "!" printf("git clone git://github.com/Shougo/neobundle.vim %s",
-			\	s:neobundle_plugins_dir . "/neobundle.vim")
+			execute "!git clone git://github.com/Shougo/neobundle.vim "
+			\ . s:neobundle_plugins_dir . "/neobundle.vim"
 			echo "neobundle installed. Please restart vim."
 		else
 			echo "Canceled."
@@ -110,6 +110,8 @@ NeoBundle "Shougo/unite-outline"
 " C++ のシンタックス
 NeoBundle "vim-jp/cpp-vim"
 
+" wandbox
+NeoBundle "rhysd/wandbox-vim"
 
 filetype plugin indent on
 syntax enable
