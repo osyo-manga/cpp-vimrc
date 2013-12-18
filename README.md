@@ -113,26 +113,34 @@ endfunction
 
 ####Vim 全体
 * 自動補完
+ * バッファ内のワード
+ * シンタックス
+ * ファイル名
 * Wandbox でコードの実行
  * wandbox.vim
+* アウトラインの出力
+ * `:Unite outline`
 
 ####filetype=cpp のみ
 * <\> のハイライト
 * BOOST_PP_ から始まる単語のハイライト
+* marching.vim を使用したコード補完
+* #include 時のヘッダーファイル名の補完
 
 
 ####キーマッピング
 
-|mode|key|description|
+|モード|キー|説明|
 |----|----|----|
-|nv||<leader>c|コメントアウトのトグル|
+|nv||&lt;leader&gt;c|コメントアウトのトグル|
 
 
 ##Install plugins
 
 * [neobundle.vim](https://github.com/Shougo/neobundle.vim) - プラグイン管理プラグイン
 * [cpp-vim](https://github.com/vim-jp/cpp-vim) - C++ のシンタックス
-* [](https://github.com/rhysd/wandbox-vim) - Wandbox でコードの実行
+* [wandbox-vim](https://github.com/rhysd/wandbox-vim) - Wandbox でコードの実行
+* [marching.vim](https://github.com/osyo-manga/vim-marching) - Clang を使用したコード補完
 * [](https://github.com/) - 
 
 

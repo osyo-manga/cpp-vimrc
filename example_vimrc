@@ -31,6 +31,9 @@ function! CppVimrcFileType_cpp()
 	" 空白文字ではなくてタブ文字を使用する
 	setlocal noexpandtab
 
+	" 自動インデントを行わない
+	setlocal nocindent
+
 	" 最後に定義された include 箇所へ移動してを挿入モードへ
 	nnoremap <buffer><silent> <Space>ii :execute "?".&include<CR> :noh<CR> o
 endfunction

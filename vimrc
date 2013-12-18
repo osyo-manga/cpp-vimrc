@@ -11,7 +11,7 @@ endif
 function! s:cpp()
 	" インクルードパスを設定する
 	" gf などでヘッダーファイルを開きたい場合に影響する
-	setlocal path+=D:/home/cpp/boost,D:/home/cpp/sprout
+	let &l:path = join(filter(split($VIM_CPP_INCLUDE_DIR, '[,;]'), 'isdirectory(v:val)'), ',')
 
 	" 括弧を構成する設定に <> を追加する
 	" template<> を多用するのであれば
@@ -25,6 +25,18 @@ function! s:cpp()
 		call CppVimrcFileType_cpp()
 	endif
 endfunction
+
+
+
+" 括弧を入力した時にカーソルが移動しないように設定
+set matchtime=0
+
+" CursorHold の更新間隔
+set updatetime=1000
+
+
+let c_comment_strings=1
+let c_no_curly_error=1
 
 
 " プラグインのインストールディレクトリ
@@ -116,6 +128,11 @@ NeoBundle "vim-jp/cpp-vim"
 " wandbox
 NeoBundle "rhysd/wandbox-vim"
 
+" コード補完
+NeoBundle "osyo-manga/vim-marching"
+
+
+
 filetype plugin indent on
 syntax enable
 
@@ -145,6 +162,9 @@ let s:hooks = neobundle#get_hooks("neocomplete.vim")
 function! s:hooks.on_source(bundle)
 	" 補完を有効にする
 	let g:neocomplete#enable_at_startup = 1
+
+	" 補完に時間がかかってもスキップしない
+	let g:neocomplete#skip_auto_completion_time = ""
 endfunction
 unlet s:hooks
 
@@ -158,12 +178,38 @@ endfunction
 unlet s:hooks
 
 
+" marching.vim
+let s:hooks = neobundle#get_hooks("vim-marching")
+function! s:hooks.on_post_source(bundle)
+	if !empty(g:marching_clang_command) && executable(g:marching_clang_command)
+		" 非同期ではなくて同期処理で補完する
+		let g:marching_backend = "sync_clang_command"
+	else
+		" clang コマンドが実行できなければ wandbox を使用する
+		let g:marching_backend = "wandbox"
+		let g:marching_clang_command = ""
+	endif
 
-set updatetime=500
+	" オプションの設定
+	" これは clang のコマンドに渡される
+	let g:marching_clang_command_option="-std=c++1y"
 
+	if !neobundle#is_sourced("neocomplete.vim")
+		return
+	endif
 
-let c_comment_strings=1
-let c_no_curly_error=1
+	" neocomplete.vim と併用して使用する場合
+	" neocomplete.vim を使用すれば自動補完になる
+	let g:marching_enable_neocomplete = 1
+
+	if !exists('g:neocomplete#force_omni_input_patterns')
+	  let g:neocomplete#force_omni_input_patterns = {}
+	endif
+
+	let g:neocomplete#force_omni_input_patterns.cpp =
+		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+	endfunction
+unlet s:hooks
 
 
 
