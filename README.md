@@ -23,8 +23,11 @@ C++er 用のサンプル vimrc です。
 
 ##Requirement
 
-* __Executable__
- * __[git](http://git-scm.com/)__
+* __[git](http://git-scm.com/)__
+* __[vimproc.vim](https://github.com/Shougo/vimproc.vim)__
+ * Windows 環境であれば自前でビルドする必要がある
+ * Windows 以外であれば neobundle.vim が自動的にビルドを行う
+ * [Kaoriya 版 Vim](http://www.kaoriya.net/software/vim/) であれば vimproc.vim が同梱されているので自前で用意する必要はない
 
 
 
@@ -120,12 +123,18 @@ endfunction
  * wandbox.vim
 * アウトラインの出力
  * `:Unite outline`
+* バッファのコードを実行
+ * `:QuickRun` or `<leader>r`
+
 
 ####filetype=cpp のみ
 * <\> のハイライト
-* BOOST_PP_ から始まる単語のハイライト
-* marching.vim を使用したコード補完
+* BOOST\_PP\_ から始まる単語のハイライト
+* marching.vim を使用した高度なコード補完
 * #include 時のヘッダーファイル名の補完
+* quickrun 時に 'path' のディレクトリをインクルードオプションとして設定
+* quickrun 時に実行が成功すればバッファへ、失敗すれば quickfix へと結果を出力する
+* quickrun の出力バッファは `botright` で開く
 
 
 ####キーマッピング
@@ -141,6 +150,8 @@ endfunction
 * [cpp-vim](https://github.com/vim-jp/cpp-vim) - C++ のシンタックス
 * [wandbox-vim](https://github.com/rhysd/wandbox-vim) - Wandbox でコードの実行
 * [marching.vim](https://github.com/osyo-manga/vim-marching) - Clang を使用したコード補完
+* [quickrun.vim](https://github.com/thinca/vim-quickrun) - コードの実行
+* [vimproc.vim](https://github.com/Shougo/vimproc.vim) - 非同期で外部コマンドを実行
 * [](https://github.com/) - 
 
 

@@ -21,6 +21,11 @@ function! s:cpp()
 	syntax match boost_pp /BOOST_PP_[A-z0-9_]*/
 	highlight link boost_pp cppStatement
 
+	" quickrun.vim の設定
+	let b:quickrun_config = {
+\		"hook/add_include_option/enable" : 1
+\	}
+
 	if exists("*CppVimrcFileType_cpp")
 		call CppVimrcFileType_cpp()
 	endif
@@ -131,6 +136,23 @@ NeoBundle "rhysd/wandbox-vim"
 " コード補完
 NeoBundle "osyo-manga/vim-marching"
 
+" コードの実行
+NeoBundle "thinca/vim-quickrun"
+
+
+" vimproc.vim
+" vimproc.vim を使用する場合は自前でビルドする必要があり
+" kaoriya 版 vim では vimproc.vim が同梱されているので必要がない
+if !has("kaoriya")
+	NeoBundle 'Shougo/vimproc.vim', {
+	\ 'build' : {
+	\     'windows' : 'make -f make_mingw32.mak',
+	\     'cygwin' : 'make -f make_cygwin.mak',
+	\     'mac' : 'make -f make_mac.mak',
+	\     'unix' : 'make -f make_unix.mak',
+	\    },
+	\ }
+endif
 
 
 filetype plugin indent on
@@ -203,12 +225,60 @@ function! s:hooks.on_post_source(bundle)
 	let g:marching_enable_neocomplete = 1
 
 	if !exists('g:neocomplete#force_omni_input_patterns')
-	  let g:neocomplete#force_omni_input_patterns = {}
+		let g:neocomplete#force_omni_input_patterns = {}
 	endif
 
 	let g:neocomplete#force_omni_input_patterns.cpp =
 		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
 	endfunction
+unlet s:hooks
+
+
+" quickrun.vim
+let s:hooks = neobundle#get_hooks("vim-quickrun")
+function! s:hooks.on_source(bundle)
+	let g:quickrun_config = {
+\		"_" : {
+\			"runner" : "vimproc",
+\			"runner/vimproc/sleep" : 10,
+\			"runner/vimproc/updatetime" : 500,
+\			"outputter" : "error",
+\			"outputter/error/success" : "buffer",
+\			"outputter/error/error"   : "quickfix",
+\			"outputter/buffer/split" : ":botright 8sp",
+\		},
+\		"wandbox" : {
+\			"runner" : "wandbox",
+\		},
+\	}
+
+
+	let s:hook = {
+	\	"name" : "add_include_option",
+	\	"kind" : "hook",
+	\	"config" : {
+	\		"enable" : 0,
+	\		"priority" : 0,
+	\		"option_format" : "-I%s"
+	\	},
+	\}
+
+	function! s:hook.on_normalized(session, context)
+		let paths = filter(split(&path, ","), "len(v:val) && v:val !='.' && v:val !~ 'gcc/mingw'")
+		
+		if len(paths)
+			let a:session.config.cmdopt .= join(map(paths, "printf(self.config.option_format, v:val)"))
+		endif
+	endfunction
+
+	function! s:hook.priority(...)
+		return self.config.priority
+	endfunction
+
+	call quickrun#module#register(s:hook, 1)
+	unlet s:hook
+
+endfunction
 unlet s:hooks
 
 
