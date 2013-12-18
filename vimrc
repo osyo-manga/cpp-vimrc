@@ -1,6 +1,10 @@
 scriptencoding utf-8
 
 " 各種設定
+if has('vim_starting')
+	set nocompatible
+endif
+
 
 " C++ の設定
 " FileType_cpp() 関数が定義されていれば最後にそれを呼ぶ
@@ -71,7 +75,6 @@ endif
 " neobundle.vim でプラグインを読み込む
 " https://github.com/Shougo/neobundle.vim
 if has('vim_starting')
-	set nocompatible
 	execute "set runtimepath+=" . s:neobundle_plugins_dir . "/neobundle.vim"
 endif
 

@@ -21,11 +21,6 @@ let $VIM_NEOBUNDLE_PLUGIN_DIR = "~/.vim/bundle"
 let $VIM_CPP_INCLUDE_DIR = ""
 
 
-
-let $VIM_NEOBUNDLE_PLUGIN_DIR = "$VIM/test_neobundle/bundle"
-let $VIM_CPP_INCLUDE_DIR = "D:/home/work/software/lib/cpp/boost/boost_1_55_0,D:/home/work/software/lib/cpp/neobundle/Sprout"
-
-
 " filetype=cpp の設定はこの関数内で行う
 " set ではなくて setlocal を使用する
 function! CppVimrcFileType_cpp()
