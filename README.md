@@ -156,8 +156,10 @@ endfunction
 |----|----|----|
 |nv|&lt;Leader&gt;c|コメントアウトのトグル|
 |nv|&lt;Leader&gt;C|コメントアウトを解除|
+|nx|&lt;Space&gt;m|カーソル下のワードのハイライトのトグル|
+|nx|&lt;Space&gt;M|&lt;Space&gt;m で設定した全てのハイライトの解除|
 |n|&lt;Space&gt;ns|スニペットファイルの編集|
-|is|&lt;Tab&gt;|スニペットの展開|
+|is||&lt;Tab&gt;|スニペットの展開|
 
 
 ##Install plugins
@@ -171,10 +173,18 @@ endfunction
 * [vim-hier](https://github.com/jceb/vim-hier) - quickfix の該当箇所をハイライト
 * [neocomplete.vim](https://github.com/Shougo/neocomplete.vim) - コード補完
 * [neosnippet.vim](https://github.com/Shougo/neosnippet.vim) - スニペット
-* [](https://github.com/) - 
+* [unite.vim](https://github.com/Shougo/unite.vim) - unite.vim
+* [unite-outline](https://github.com/Shougo/unite-outline) - アウトラインの表示
+* [caw.vim](https://github.com/tyru/caw.vim) - コメントアウト
+* [vim-quickhl](https://github.com/t9md/vim-quickhl) - カーソル下のワードのハイライト
 
 
 ##Screencapture
+
+
+####caw.vim
+![caw](https://f.cloud.github.com/assets/214488/1780800/041ae102-6883-11e3-926f-4007ca8b91cf.gif)
+
 
 ####unite-outline
 ![unite_outline](https://f.cloud.github.com/assets/214488/1779845/b889ba84-6859-11e3-9a23-51eedb171131.PNG)

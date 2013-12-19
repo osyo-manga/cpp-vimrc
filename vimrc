@@ -150,6 +150,8 @@ NeoBundle "osyo-manga/vim-watchdogs"
 NeoBundle "osyo-manga/shabadou.vim"
 
 
+" ハイライト
+NeoBundle "t9md/vim-quickhl"
 
 " vimproc.vim
 " vimproc.vim を使用する場合は自前でビルドする必要があり
@@ -221,6 +223,21 @@ let s:hooks = neobundle#get_hooks("neocomplcache")
 function! s:hooks.on_source(bundle)
 	" 補完を有効にする
 	let g:neocomplcache_enable_at_startup=1
+endfunction
+unlet s:hooks
+
+
+" vim-quickhl
+let s:hooks = neobundle#get_hooks("vim-quickhl")
+function! s:hooks.on_source(bundle)
+	" <Space>m でカーソル下の単語、もしくは選択した範囲のハイライトを行う
+	" 再度 <Space>m を行うとカーソル下のハイライトを解除する
+	" これは複数の単語のハイライトを行う事もできる
+	" <Space>M で全てのハイライトを解除する
+	nmap <Space>m <Plug>(quickhl-manual-this)
+	xmap <Space>m <Plug>(quickhl-manual-this)
+	nmap <Space>M <Plug>(quickhl-manual-reset)
+	xmap <Space>M <Plug>(quickhl-manual-reset)
 endfunction
 unlet s:hooks
 
@@ -390,9 +407,6 @@ augroup vimrc-cpp
 	" filetype=cpp が設定された場合に関数を呼ぶ
 	autocmd FileType cpp call s:cpp()
 augroup END
-
-
-
 
 
 
