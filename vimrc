@@ -145,6 +145,9 @@ NeoBundle "thinca/vim-quickrun"
 " quickfix の該当箇所をハイライト
 NeoBundle "jceb/vim-hier"
 
+" quickfix の該当箇所の内容をコマンドラインに出力
+NeoBundle "dannyob/quickfixstatus"
+
 " シンタックスチェッカー
 NeoBundle "osyo-manga/vim-watchdogs"
 NeoBundle "osyo-manga/shabadou.vim"
@@ -223,6 +226,14 @@ let s:hooks = neobundle#get_hooks("neocomplcache")
 function! s:hooks.on_source(bundle)
 	" 補完を有効にする
 	let g:neocomplcache_enable_at_startup=1
+endfunction
+unlet s:hooks
+
+
+" quickfixstatus
+let s:hooks = neobundle#get_hooks("quickfixstatus")
+function! s:hooks.on_post_source(bundle)
+	QuickfixStatusEnable
 endfunction
 unlet s:hooks
 
@@ -315,10 +326,19 @@ function! s:hooks.on_source(bundle)
 \			"outputter/quickfix/open_cmd" : "copen",
 \			"outputter/buffer/split" : ":botright 8sp",
 \		},
+\
 \		"cpp/wandbox" : {
 \			"runner" : "wandbox",
 \			"runner/wandbox/compiler" : "clang-head",
 \			"runner/wandbox/options" : "warning,c++1y,boost-1.55",
+\		},
+\
+\		"cpp/g++" : {
+\			"cmdopt" : "-std=c++0x -Wall",
+\		},
+\
+\		"cpp/clang++" : {
+\			"cmdopt" : "-std=c++0x -Wall",
 \		},
 \
 \		"cpp/watchdogs_checker" : {
