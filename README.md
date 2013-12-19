@@ -96,7 +96,7 @@ let $VIM_CPP_INCLUDE_DIR = "D:/home/cpp/boost/boost_1_55_0,D:/home/cpp/Sprout"
 
 " filetype=cpp の設定はこの関数内で行う
 " set ではなくて setlocal を使用する
-function! FileType_cpp()
+function! CppVimrcOnFileType_cpp()
 	"タブ文字の長さ
 	setlocal tabstop=4
 	setlocal shiftwidth=4
@@ -138,6 +138,8 @@ endfunction
 * quickrun 時に実行が成功すればバッファへ、失敗すれば quickfix へと結果を出力する
  * その為、出力はバッファリングされます
 * quickrun の出力バッファのウィンドウは `botright` で開く
+* quickfix のエラー箇所のハイライト
+* 保存時にシンタックスチェックを行う
 
 
 ####filetype=cpp のみ
@@ -152,10 +154,10 @@ endfunction
 
 |モード|キー|説明|
 |----|----|----|
-|nv||&lt;Leader&gt;c|コメントアウトのトグル|
-|nv||&lt;Leader&gt;C|コメントアウトを解除|
-|n||&lt;Space&gt;ns|スニペットファイルの編集|
-|is||&lt;Tab&gt;|スニペットの展開|
+|nv|&lt;Leader&gt;c|コメントアウトのトグル|
+|nv|&lt;Leader&gt;C|コメントアウトを解除|
+|n|&lt;Space&gt;ns|スニペットファイルの編集|
+|is|&lt;Tab&gt;|スニペットの展開|
 
 
 ##Install plugins
@@ -187,7 +189,8 @@ endfunction
 
 ![syntax](https://f.cloud.github.com/assets/214488/1779905/06ac3038-685b-11e3-91d0-0c85db54d11c.png)
 
-![file_include](https://f.cloud.github.com/assets/214488/1779923/c3fd453c-685b-11e3-99da-5ac982cb2e7b.PNG)
+![file_include](https://f.cloud.github.com/assets/214488/1780557/d182211a-6878-11e3-88a8-0bd8c5ff7252.gif)
+
 
 ####marching.vim
 ![marching](https://f.cloud.github.com/assets/214488/1779935/22c5271a-685c-11e3-97f1-2e9e6fb84720.PNG)

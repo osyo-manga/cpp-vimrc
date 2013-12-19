@@ -303,6 +303,22 @@ function! s:hooks.on_source(bundle)
 \			"runner/wandbox/compiler" : "clang-head",
 \			"runner/wandbox/options" : "warning,c++1y,boost-1.55",
 \		},
+\
+\		"cpp/watchdogs_checker" : {
+\			"type" : "watchdogs_checker/clang++",
+\		},
+\	
+\		"watchdogs_checker/_" : {
+\			"outputter/quickfix/open_cmd" : "",
+\		},
+\	
+\		"watchdogs_checker/g++" : {
+\			"cmdopt" : "-Wall",
+\		},
+\	
+\		"watchdogs_checker/clang++" : {
+\			"cmdopt" : "-Wall",
+\		},
 \	}
 
 	let s:hook = {
@@ -341,6 +357,14 @@ function! s:hooks.on_source(bundle)
 	call quickrun#module#register(s:hook, 1)
 	unlet s:hook
 
+endfunction
+unlet s:hooks
+
+
+" vim-watchdogs
+let s:hooks = neobundle#get_hooks("vim-watchdogs")
+function! s:hooks.on_source(bundle)
+	let g:watchdogs_check_BufWritePost_enable = 1
 endfunction
 unlet s:hooks
 
