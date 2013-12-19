@@ -328,6 +328,19 @@ function! s:hooks.on_source(bundle)
 	call quickrun#module#register(s:hook, 1)
 	unlet s:hook
 
+
+	let s:hook = {
+	\	"name" : "clear_quickfix",
+	\	"kind" : "hook",
+	\}
+
+	function! s:hook.on_normalized(session, context)
+		call setqflist([])
+	endfunction
+
+	call quickrun#module#register(s:hook, 1)
+	unlet s:hook
+
 endfunction
 unlet s:hooks
 
