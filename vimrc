@@ -11,7 +11,7 @@ endif
 function! s:cpp()
 	" インクルードパスを設定する
 	" gf などでヘッダーファイルを開きたい場合に影響する
-	let &l:path = join(filter(split($VIM_CPP_INCLUDE_DIR, '[,;]'), 'isdirectory(v:val)'), ',')
+	let &l:path = join(filter(split($VIM_CPP_STDLIB . "," . $VIM_CPP_INCLUDE_DIR, '[,;]'), 'isdirectory(v:val)'), ',')
 
 	" 括弧を構成する設定に <> を追加する
 	" template<> を多用するのであれば
@@ -26,8 +26,8 @@ function! s:cpp()
 \		"hook/add_include_option/enable" : 1
 \	}
 
-	if exists("*CppVimrcFileType_cpp")
-		call CppVimrcFileType_cpp()
+	if exists("*CppVimrcOnFileType_cpp")
+		call CppVimrcOnFileType_cpp()
 	endif
 endfunction
 
@@ -119,6 +119,8 @@ else
 	NeoBundle "Shougo/neocomplcache"
 endif
 
+" スニペット
+NeoBundle "Shougo/neosnippet.vim"
 
 " unite.vim
 NeoBundle "Shougo/unite.vim"
@@ -140,9 +142,18 @@ NeoBundle "osyo-manga/vim-marching"
 NeoBundle "thinca/vim-quickrun"
 
 
+" quickfix の該当箇所をハイライト
+NeoBundle "jceb/vim-hier"
+
+" シンタックスチェッカー
+NeoBundle "osyo-manga/vim-watchdogs"
+NeoBundle "osyo-manga/shabadou.vim"
+
+
+
 " vimproc.vim
 " vimproc.vim を使用する場合は自前でビルドする必要があり
-" kaoriya 版 vim では vimproc.vim が同梱されているので必要がない
+" kaoriya 版 vim では vimproc.vim が同梱されているので必要がないです
 if !has("kaoriya")
 	NeoBundle 'Shougo/vimproc.vim', {
 	\ 'build' : {
@@ -153,6 +164,15 @@ if !has("kaoriya")
 	\    },
 	\ }
 endif
+
+
+
+
+if exists("*CppVimrcOnNeoBundle")
+	call CppVimrcOnNeoBundle()
+endif
+
+
 
 
 filetype plugin indent on
@@ -166,7 +186,7 @@ NeoBundleCheck
 " プラグインの設定
 " これはプラグインが読み込まれた場合に有効になる
 
-" neocomplcache
+" caw.vim
 let s:hooks = neobundle#get_hooks("caw.vim")
 function! s:hooks.on_source(bundle)
 	" コメントアウトを切り替えるマッピング
@@ -175,6 +195,11 @@ function! s:hooks.on_source(bundle)
 	" 選択してから複数行の <leader>c も可能
 	nmap <leader>c <Plug>(caw:I:toggle)
 	vmap <leader>c <Plug>(caw:I:toggle)
+
+	" <leader>C でコメントアウトを解除
+	nmap <Leader>C <Plug>(caw:I:uncomment)
+	vmap <Leader>C <Plug>(caw:I:uncomment)
+
 endfunction
 unlet s:hooks
 
@@ -196,6 +221,31 @@ let s:hooks = neobundle#get_hooks("neocomplcache")
 function! s:hooks.on_source(bundle)
 	" 補完を有効にする
 	let g:neocomplcache_enable_at_startup=1
+endfunction
+unlet s:hooks
+
+
+" neosnippet.vim
+let s:hooks = neobundle#get_hooks("neosnippet.vim")
+function! s:hooks.on_source(bundle)
+	" スニペットを展開するキーマッピング
+	" <Tab> で選択されているスニペットの展開を行う
+	" 選択されている候補がスニペットであれば展開し、
+	" それ以外であれば次の候補を選択する
+	" また、既にスニペットが展開されている場合は次のマークへと移動する
+	imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)"
+	\: pumvisible() ? "\<C-n>" : "\<TAB>"
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+	\ "\<Plug>(neosnippet_expand_or_jump)"
+	\: "\<TAB>"
+
+	let g:neosnippet#snippets_directory = "~/.neosnippet"
+
+	" 現在の filetype のスニペットを編集する為のキーマッピング
+	" こうしておくことでサッと編集や追加などを行うことができる
+	" 以下の設定では新しいタブでスニペットファイルを開く
+	nnoremap <Space>ns :execute "tabnew\|:NeoSnippetEdit ".&filetype<CR>
 endfunction
 unlet s:hooks
 
@@ -245,34 +295,34 @@ function! s:hooks.on_source(bundle)
 \			"outputter" : "error",
 \			"outputter/error/success" : "buffer",
 \			"outputter/error/error"   : "quickfix",
+\			"outputter/quickfix/open_cmd" : "copen",
 \			"outputter/buffer/split" : ":botright 8sp",
 \		},
-\		"wandbox" : {
+\		"cpp/wandbox" : {
 \			"runner" : "wandbox",
+\			"runner/wandbox/compiler" : "clang-head",
+\			"runner/wandbox/options" : "warning,c++1y,boost-1.55",
 \		},
 \	}
-
 
 	let s:hook = {
 	\	"name" : "add_include_option",
 	\	"kind" : "hook",
 	\	"config" : {
-	\		"enable" : 0,
-	\		"priority" : 0,
 	\		"option_format" : "-I%s"
 	\	},
 	\}
 
 	function! s:hook.on_normalized(session, context)
-		let paths = filter(split(&path, ","), "len(v:val) && v:val !='.' && v:val !~ 'gcc/mingw'")
+		" filetype==cpp 以外は設定しない
+		if &filetype !=# "cpp"
+			return
+		endif
+		let paths = filter(split(&path, ","), "len(v:val) && v:val !='.' && v:val !~ $CPP_STDLIB")
 		
 		if len(paths)
-			let a:session.config.cmdopt .= join(map(paths, "printf(self.config.option_format, v:val)"))
-		endif
-	endfunction
-
-	function! s:hook.priority(...)
-		return self.config.priority
+			let a:session.config.cmdopt .= " " . join(map(paths, "printf(self.config.option_format, v:val)")) . " "
+		endi
 	endfunction
 
 	call quickrun#module#register(s:hook, 1)
@@ -283,8 +333,8 @@ unlet s:hooks
 
 
 
-if exists("*CppVimrcPrePlugin")
-	call CppVimrcPrePlugin()
+if exists("*CppVimrcOnPrePlugin")
+	call CppVimrcOnPrePlugin()
 endif
 
 
@@ -292,8 +342,8 @@ call neobundle#call_hook('on_source')
 
 
 
-if exists("*CppVimrcFinish")
-	call CppVimrcFinish()
+if exists("*CppVimrcOnFinish")
+	call CppVimrcOnFinish()
 endif
 
 

@@ -14,6 +14,7 @@ C++er 用のサンプル vimrc です。
 ##Guideline
 
 * C++er 向けの参考になる/汎用的な vimrc の提示が目的
+ * あくまでも C++er 向けの vimrc を目指しているので C++ に直接関係のない設定は記述しない方向
 * この vimrc を元に自分で設定などを追加して使用してもらう
  * ただし、単体でも使用可能
 * なるべく余計なコードや設定は行わず簡素な vimrc を目指す
@@ -51,6 +52,7 @@ C++er 用のサンプル vimrc です。
 |環境変数|説明|デフォルト値|
 |----|----|----|
 |$VIM_NEOBUNDLE_PLUGIN_DIR|neobundle.vim のインストールディレクトリ|"~/.vim/bundle/"|
+|$VIM_CPP_STDLIB|C++ の標準ライブラリへのパス|""|
 |$VIM_CPP_INCLUDE_DIR|C++ のインクルードディレクトリ|""|
 
 
@@ -67,22 +69,29 @@ C++er 用のサンプル vimrc です。
 
 |関数名|説明|
 |----|----|
-|CppVimrcFileType_cpp()|filetype=cpp 時に呼ばれる|
-|CppVimrcPrePlugin()|プラグインの設定前に呼ばれる|
-|CppVimrcFinish()|読み込みが終了して一番最後に呼ばれる|
+|CppVimrcOnFileType_cpp()|filetype=cpp 時に呼ばれる|
+|CppVimrcOnPrePlugin()|プラグインの設定前に呼ばれる|
+|CppVimrcOnFinish()|読み込みが終了して一番最後に呼ばれる|
 
 
 ####Example
 
 
 ```vim
+" neobundle.vim がインストールするプラグインへのパス
+" neobundle.vim もこのディレクトリにインストールが行われる
+" default : ""
+let $VIM_NEOBUNDLE_PLUGIN_DIR = "~/.vim/bundle"
+
+" C++ の標準ライブラリへのパス
+" $VIM_CPP_INCLUDE_DIR とは別に設定しておく
+" default : ""
+let $VIM_CPP_STDLIB = "C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++"
+
 " C++ のインクルードディレクトリ
 " 複数の場合は , 区切りで設定
 " default : ""
-let $VIM_CPP_INCLUDE_DIR = "D:/home/work/software/lib/cpp/boost/boost_1_55_0,D:/home/work/software/lib/cpp/neobundle/Sprout"
-
-let $VIM_NEOBUNDLE_PLUGIN_DIR = "$VIM/dotfiles/neobundle.vim/"
-let $VIM_CPP_INCLUDE_DIR = "D:/home/work/software/lib/cpp/boost/boost_1_55_0,D:/home/work/software/lib/cpp/neobundle/Sprout"
+let $VIM_CPP_INCLUDE_DIR = "D:/home/cpp/boost/boost_1_55_0,D:/home/cpp/Sprout"
 
 
 " filetype=cpp の設定はこの関数内で行う
@@ -115,6 +124,7 @@ endfunction
 ##Default setting
 
 ####Vim 全体
+* 自動的に neobundle.vim の`git clone` を行う
 * 自動補完
  * バッファ内のワード
  * シンタックス
@@ -125,23 +135,27 @@ endfunction
  * `:Unite outline`
 * バッファのコードを実行
  * `:QuickRun` or `<leader>r`
+* quickrun 時に実行が成功すればバッファへ、失敗すれば quickfix へと結果を出力する
+ * その為、出力はバッファリングされます
+* quickrun の出力バッファのウィンドウは `botright` で開く
 
 
 ####filetype=cpp のみ
-* <\> のハイライト
+* `'matchpairs'` に <\> を追加
 * BOOST\_PP\_ から始まる単語のハイライト
 * marching.vim を使用した高度なコード補完
 * #include 時のヘッダーファイル名の補完
 * quickrun 時に 'path' のディレクトリをインクルードオプションとして設定
-* quickrun 時に実行が成功すればバッファへ、失敗すれば quickfix へと結果を出力する
-* quickrun の出力バッファは `botright` で開く
 
 
 ####キーマッピング
 
 |モード|キー|説明|
 |----|----|----|
-|nv||&lt;leader&gt;c|コメントアウトのトグル|
+|nv||&lt;Leader&gt;c|コメントアウトのトグル|
+|nv||&lt;Leader&gt;C|コメントアウトを解除|
+|n||&lt;Space&gt;ns|スニペットファイルの編集|
+|is||&lt;Tab&gt;|スニペットの展開|
 
 
 ##Install plugins
@@ -152,7 +166,44 @@ endfunction
 * [marching.vim](https://github.com/osyo-manga/vim-marching) - Clang を使用したコード補完
 * [quickrun.vim](https://github.com/thinca/vim-quickrun) - コードの実行
 * [vimproc.vim](https://github.com/Shougo/vimproc.vim) - 非同期で外部コマンドを実行
+* [vim-hier](https://github.com/jceb/vim-hier) - quickfix の該当箇所をハイライト
+* [neocomplete.vim](https://github.com/Shougo/neocomplete.vim) - コード補完
+* [neosnippet.vim](https://github.com/Shougo/neosnippet.vim) - スニペット
 * [](https://github.com/) - 
+
+
+##Screencapture
+
+####unite-outline
+![unite_outline](https://f.cloud.github.com/assets/214488/1779845/b889ba84-6859-11e3-9a23-51eedb171131.PNG)
+
+
+####unite-file_include
+![file_include](https://f.cloud.github.com/assets/214488/1779950/97029b30-685c-11e3-8be6-fb1bf8889c4f.PNG)
+
+
+####neocomplete.vim
+![file](https://f.cloud.github.com/assets/214488/1779896/dad7008c-685a-11e3-8ff9-9471f4c779fd.png)
+
+![syntax](https://f.cloud.github.com/assets/214488/1779905/06ac3038-685b-11e3-91d0-0c85db54d11c.png)
+
+![file_include](https://f.cloud.github.com/assets/214488/1779923/c3fd453c-685b-11e3-99da-5ac982cb2e7b.PNG)
+
+####marching.vim
+![marching](https://f.cloud.github.com/assets/214488/1779935/22c5271a-685c-11e3-97f1-2e9e6fb84720.PNG)
+
+
+####neosnippet.vim
+![neosnippet](https://f.cloud.github.com/assets/214488/1780088/64816da2-6862-11e3-8582-1b0ab238f02f.gif)
+
+
+####quickrun.vim
+#####成功
+![success](https://f.cloud.github.com/assets/214488/1780264/729b479c-686b-11e3-9a8c-0f095c06d9fb.PNG)
+
+
+#####失敗
+![error](https://f.cloud.github.com/assets/214488/1780270/b1010030-686b-11e3-937a-3b662a6e6550.PNG)
 
 
 ##License

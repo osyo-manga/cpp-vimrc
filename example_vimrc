@@ -9,10 +9,20 @@ if has("gui_win32")
 endif
 
 
-
-" neobundle.vim のインストールディレクトリ
-" default : '~/.vim/bundle'
+" neobundle.vim がインストールするプラグインへのパス
+" neobundle.vim もこのディレクトリにインストールが行われる
+" default : ""
 let $VIM_NEOBUNDLE_PLUGIN_DIR = "~/.vim/bundle"
+
+" C++ の標準ライブラリへのパス
+" $VIM_CPP_INCLUDE_DIR とは別に設定しておく
+" default : ""
+let $VIM_CPP_STDLIB = "C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++"
+
+" C++ のインクルードディレクトリ
+" 複数の場合は , 区切りで設定
+" default : ""
+let $VIM_CPP_INCLUDE_DIR = "D:/home/cpp/boost/boost_1_55_0,D:/home/cpp/Sprout"
 
 
 " C++ のインクルードディレクトリ
