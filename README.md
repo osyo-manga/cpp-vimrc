@@ -173,6 +173,7 @@ endfunction
 * [vim-hier](https://github.com/jceb/vim-hier) - quickfix の該当箇所をハイライト
 * [neocomplete.vim](https://github.com/Shougo/neocomplete.vim) - コード補完
 * [neosnippet.vim](https://github.com/Shougo/neosnippet.vim) - スニペット
+* [neosnippet-snippets](https://github.com/Shougo/neosnippet-snippets) - スニペット
 * [unite.vim](https://github.com/Shougo/unite.vim) - unite.vim
 * [unite-outline](https://github.com/Shougo/unite-outline) - アウトラインの表示
 * [caw.vim](https://github.com/tyru/caw.vim) - コメントアウト
