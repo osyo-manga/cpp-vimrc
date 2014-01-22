@@ -121,6 +121,7 @@ endif
 
 " スニペット
 NeoBundle "Shougo/neosnippet.vim"
+NeoBundle "Shougo/neosnippet-snippets"
 
 " unite.vim
 NeoBundle "Shougo/unite.vim"
