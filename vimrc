@@ -372,11 +372,11 @@ function! s:hooks.on_source(bundle)
 		if &filetype !=# "cpp"
 			return
 		endif
-		let paths = filter(split(&path, ","), "len(v:val) && v:val !='.' && v:val !~ $CPP_STDLIB")
+		let paths = filter(split(&path, ","), "len(v:val) && v:val !='.' && v:val !~ $VIM_CPP_STDLIB")
 		
 		if len(paths)
 			let a:session.config.cmdopt .= " " . join(map(paths, "printf(self.config.option_format, v:val)")) . " "
-		endi
+		endif
 	endfunction
 
 	call quickrun#module#register(s:hook, 1)
