@@ -293,7 +293,10 @@ function! s:hooks.on_post_source(bundle)
 
 	" オプションの設定
 	" これは clang のコマンドに渡される
-	let g:marching_clang_command_option="-std=c++1y"
+	let g:marching#clang_command#options = {
+	\	"cpp" : "-std=gnu++1y"
+	\}
+
 
 	if !neobundle#is_sourced("neocomplete.vim")
 		return
