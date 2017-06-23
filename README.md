@@ -1,17 +1,17 @@
-#cpp-vimrc
+# cpp-vimrc
 
 vimrc of C++er.
 
 
 
-##Introduction
+## Introduction
 
 C++er 用のサンプル vimrc です。
 いくつかのプラグインの設定などが記述されています。
 単体で使用することも可能ですし、改変して使用したり、一部を切り取って使用するなり好きにして下さい。
 
 
-##Guideline
+## Guideline
 
 * C++er 向けの参考になる/汎用的な vimrc の提示が目的
  * あくまでも C++er 向けの vimrc を目指しているので C++ に直接関係のない設定は記述しない方向
@@ -22,7 +22,7 @@ C++er 用のサンプル vimrc です。
 * プラグインの管理は [neobundle.vim](https://github.com/Shougo/neobundle.vim) を使用
 
 
-##Requirement
+## equirement
 
 * __[git](http://git-scm.com/)__
 * __[vimproc.vim](https://github.com/Shougo/vimproc.vim)__
@@ -32,7 +32,7 @@ C++er 用のサンプル vimrc です。
 
 
 
-##Usage
+## sage
 
 * 1．この vimrc を読み込む、または自分の vimrc に組み込む
 * 2．初回起動時に neobundle.vim がインストールされていなければインストールが行われる
@@ -45,7 +45,7 @@ C++er 用のサンプル vimrc です。
 * 5．以降、プラグインを更新する場合は `:NeoBundleUpdate` を使用する
 
 
-##User setting
+## ser setting
 
 ####環境変数
 
@@ -74,7 +74,7 @@ C++er 用のサンプル vimrc です。
 |CppVimrcOnFinish()|読み込みが終了して一番最後に呼ばれる|
 
 
-####Example
+#### xample
 
 
 ```vim
@@ -121,9 +121,9 @@ endfunction
 ```
 
 
-##Default setting
+## efault setting
 
-####Vim 全体
+#### im 全体
 * 自動的に neobundle.vim の`git clone` を行う
 * 自動補完
  * バッファ内のワード
@@ -142,11 +142,11 @@ endfunction
 * 保存時にシンタックスチェックを行う
 
 
-####filetype=cpp のみ
+#### iletype=cpp のみ
 * `'matchpairs'` に <\> を追加
 * BOOST\_PP\_ から始まる単語のハイライト
 * marching.vim を使用した高度なコード補完
-* #include 時のヘッダーファイル名の補完
+* # nclude 時のヘッダーファイル名の補完
 * quickrun 時に 'path' のディレクトリをインクルードオプションとして設定
 
 
@@ -162,7 +162,7 @@ endfunction
 |is||&lt;Tab&gt;|スニペットの展開|
 
 
-##Install plugins
+## nstall plugins
 
 * [neobundle.vim](https://github.com/Shougo/neobundle.vim) - プラグイン管理プラグイン
 * [cpp-vim](https://github.com/vim-jp/cpp-vim) - C++ のシンタックス
@@ -180,22 +180,25 @@ endfunction
 * [vim-quickhl](https://github.com/t9md/vim-quickhl) - カーソル下のワードのハイライト
 
 
-##Screencapture
+## creencapture
 
 
-####caw.vim
+#### aw.vim
 ![caw](https://f.cloud.github.com/assets/214488/1780800/041ae102-6883-11e3-926f-4007ca8b91cf.gif)
 
 
-####unite-outline
+#### nite-outline
+
 ![unite_outline](https://f.cloud.github.com/assets/214488/1779845/b889ba84-6859-11e3-9a23-51eedb171131.PNG)
 
 
-####unite-file_include
+#### nite-file_include
+
 ![file_include](https://f.cloud.github.com/assets/214488/1779950/97029b30-685c-11e3-8be6-fb1bf8889c4f.PNG)
 
 
-####neocomplete.vim
+#### eocomplete.vim
+
 ![file](https://f.cloud.github.com/assets/214488/1779896/dad7008c-685a-11e3-8ff9-9471f4c779fd.png)
 
 ![syntax](https://f.cloud.github.com/assets/214488/1779905/06ac3038-685b-11e3-91d0-0c85db54d11c.png)
@@ -203,24 +206,29 @@ endfunction
 ![file_include](https://f.cloud.github.com/assets/214488/1780557/d182211a-6878-11e3-88a8-0bd8c5ff7252.gif)
 
 
-####marching.vim
+#### arching.vim
+
 ![marching](https://f.cloud.github.com/assets/214488/1779935/22c5271a-685c-11e3-97f1-2e9e6fb84720.PNG)
 
 
-####neosnippet.vim
+#### eosnippet.vim
+
 ![neosnippet](https://f.cloud.github.com/assets/214488/1780088/64816da2-6862-11e3-8582-1b0ab238f02f.gif)
 
 
-####quickrun.vim
-#####成功
+#### uickrun.vim
+
+##### 成功
+
 ![success](https://f.cloud.github.com/assets/214488/1780264/729b479c-686b-11e3-9a8c-0f095c06d9fb.PNG)
 
 
-#####失敗
+##### 失敗
+
 ![error](https://f.cloud.github.com/assets/214488/1780270/b1010030-686b-11e3-937a-3b662a6e6550.PNG)
 
 
-##License
+## icense
 
 [NYSL](http://www.kmonos.net/nysl/)
 
