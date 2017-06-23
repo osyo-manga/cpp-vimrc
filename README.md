@@ -146,7 +146,7 @@ endfunction
 * `'matchpairs'` に <\> を追加
 * BOOST\_PP\_ から始まる単語のハイライト
 * marching.vim を使用した高度なコード補完
-* # nclude 時のヘッダーファイル名の補完
+* include 時のヘッダーファイル名の補完
 * quickrun 時に 'path' のディレクトリをインクルードオプションとして設定
 
 
