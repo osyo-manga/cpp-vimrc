@@ -22,7 +22,7 @@ C++er 用のサンプル vimrc です。
 * プラグインの管理は [neobundle.vim](https://github.com/Shougo/neobundle.vim) を使用
 
 
-## equirement
+## Requirement
 
 * __[git](http://git-scm.com/)__
 * __[vimproc.vim](https://github.com/Shougo/vimproc.vim)__
@@ -32,7 +32,7 @@ C++er 用のサンプル vimrc です。
 
 
 
-## sage
+## Usage
 
 * 1．この vimrc を読み込む、または自分の vimrc に組み込む
 * 2．初回起動時に neobundle.vim がインストールされていなければインストールが行われる
@@ -45,9 +45,9 @@ C++er 用のサンプル vimrc です。
 * 5．以降、プラグインを更新する場合は `:NeoBundleUpdate` を使用する
 
 
-## ser setting
+## User setting
 
-####環境変数
+#### 環境変数
 
 |環境変数|説明|デフォルト値|
 |----|----|----|
@@ -56,7 +56,7 @@ C++er 用のサンプル vimrc です。
 |$VIM_CPP_INCLUDE_DIR|C++ のインクルードディレクトリ|""|
 
 
-####フラグ
+#### フラグ
 1 が設定されている場合は有効になります。
 これは本 vimrc が読み込まれる前に設定しておく必要があります。
 
@@ -65,7 +65,7 @@ C++er 用のサンプル vimrc です。
 |----|----|----|
 
 
-####コールバック関数
+#### コールバック関数
 
 |関数名|説明|
 |----|----|
@@ -74,7 +74,7 @@ C++er 用のサンプル vimrc です。
 |CppVimrcOnFinish()|読み込みが終了して一番最後に呼ばれる|
 
 
-#### xample
+#### Example
 
 
 ```vim
@@ -121,9 +121,9 @@ endfunction
 ```
 
 
-## efault setting
+## Default setting
 
-#### im 全体
+#### Vim 全体
 * 自動的に neobundle.vim の`git clone` を行う
 * 自動補完
  * バッファ内のワード
@@ -142,7 +142,7 @@ endfunction
 * 保存時にシンタックスチェックを行う
 
 
-#### iletype=cpp のみ
+#### filetype=cpp のみ
 * `'matchpairs'` に <\> を追加
 * BOOST\_PP\_ から始まる単語のハイライト
 * marching.vim を使用した高度なコード補完
@@ -150,7 +150,7 @@ endfunction
 * quickrun 時に 'path' のディレクトリをインクルードオプションとして設定
 
 
-####キーマッピング
+#### キーマッピング
 
 |モード|キー|説明|
 |----|----|----|
@@ -162,7 +162,7 @@ endfunction
 |is||&lt;Tab&gt;|スニペットの展開|
 
 
-## nstall plugins
+## Install plugins
 
 * [neobundle.vim](https://github.com/Shougo/neobundle.vim) - プラグイン管理プラグイン
 * [cpp-vim](https://github.com/vim-jp/cpp-vim) - C++ のシンタックス
@@ -180,24 +180,24 @@ endfunction
 * [vim-quickhl](https://github.com/t9md/vim-quickhl) - カーソル下のワードのハイライト
 
 
-## creencapture
+## Screencapture
 
 
-#### aw.vim
+#### caw.vim
 ![caw](https://f.cloud.github.com/assets/214488/1780800/041ae102-6883-11e3-926f-4007ca8b91cf.gif)
 
 
-#### nite-outline
+#### unite-outline
 
 ![unite_outline](https://f.cloud.github.com/assets/214488/1779845/b889ba84-6859-11e3-9a23-51eedb171131.PNG)
 
 
-#### nite-file_include
+#### unite-file_include
 
 ![file_include](https://f.cloud.github.com/assets/214488/1779950/97029b30-685c-11e3-8be6-fb1bf8889c4f.PNG)
 
 
-#### eocomplete.vim
+#### neocomplete.vim
 
 ![file](https://f.cloud.github.com/assets/214488/1779896/dad7008c-685a-11e3-8ff9-9471f4c779fd.png)
 
@@ -206,17 +206,17 @@ endfunction
 ![file_include](https://f.cloud.github.com/assets/214488/1780557/d182211a-6878-11e3-88a8-0bd8c5ff7252.gif)
 
 
-#### arching.vim
+#### marching.vim
 
 ![marching](https://f.cloud.github.com/assets/214488/1779935/22c5271a-685c-11e3-97f1-2e9e6fb84720.PNG)
 
 
-#### eosnippet.vim
+#### neosnippet.vim
 
 ![neosnippet](https://f.cloud.github.com/assets/214488/1780088/64816da2-6862-11e3-8582-1b0ab238f02f.gif)
 
 
-#### uickrun.vim
+#### quickrun.vim
 
 ##### 成功
 
@@ -228,7 +228,7 @@ endfunction
 ![error](https://f.cloud.github.com/assets/214488/1780270/b1010030-686b-11e3-937a-3b662a6e6550.PNG)
 
 
-## icense
+## License
 
 [NYSL](http://www.kmonos.net/nysl/)
 
